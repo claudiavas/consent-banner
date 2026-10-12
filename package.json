@@ -16,7 +16,16 @@
     "cookie-banner",
     "consent-mode",
     "gtag",
-    "google-tag-manager"
+    "google-tag-manager",
+    "cookie-consent",
+    "consent-management",
+    "cmp",
+    "eprivacy",
+    "lgpd",
+    "i18n",
+    "dark-mode",
+    "typescript",
+    "cookieyes-alternative"
   ],
   "type": "module",
   "sideEffects": false,
