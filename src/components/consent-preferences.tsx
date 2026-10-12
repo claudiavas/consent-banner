@@ -18,14 +18,19 @@ export function ConsentPreferences() {
   const titleId = useId();
   const descriptionId = useId();
 
+  // Captured during the first render: by the time effects run, the banner is already
+  // inert and the browser has moved focus away from the button that opened the panel.
+  const [opener] = useState(() =>
+    typeof document !== 'undefined' && document.activeElement instanceof HTMLElement ? document.activeElement : null,
+  );
+
   useEffect(() => {
-    const opener = document.activeElement instanceof HTMLElement ? document.activeElement : null;
     const first = dialogRef.current?.querySelector<HTMLElement>(FOCUSABLE);
     (first ?? dialogRef.current)?.focus();
     return () => {
       if (opener?.isConnected) opener.focus();
     };
-  }, []);
+  }, [opener]);
 
   function onKeyDown(event: KeyboardEvent<HTMLDivElement>) {
     if (event.key === 'Escape') {

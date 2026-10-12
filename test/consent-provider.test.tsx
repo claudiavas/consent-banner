@@ -165,6 +165,55 @@ describe('granular choice', () => {
     expect(screen.getByRole('dialog', { name: 'We value your privacy' })).toBeInTheDocument();
   });
 
+  it('makes the banner inert while the panel is open', async () => {
+    const user = setup();
+    const customize = await screen.findByRole('button', { name: 'Customize' });
+    const banner = document.querySelector<HTMLElement>('.cb-banner')!;
+    expect(banner.inert).toBe(false);
+
+    await user.click(customize);
+    expect(banner.inert).toBe(true);
+    expect(banner).toHaveAttribute('aria-hidden', 'true');
+
+    await user.keyboard('{Escape}');
+    expect(banner.inert).toBe(false);
+    expect(banner).not.toHaveAttribute('aria-hidden');
+  });
+
+  it('lifts inert before returning focus to the Customize button', async () => {
+    // jsdom does not enforce inert, so mimic the browser: focus() inside an inert subtree is ignored.
+    const nativeFocus = HTMLElement.prototype.focus;
+    const focusSpy = vi.spyOn(HTMLElement.prototype, 'focus').mockImplementation(function (this: HTMLElement) {
+      for (let node: HTMLElement | null = this; node; node = node.parentElement) {
+        if (node.inert) return;
+      }
+      nativeFocus.call(this);
+    });
+    try {
+      const user = setup();
+      const customize = await screen.findByRole('button', { name: 'Customize' });
+      // Like the browser, making the banner inert blurs the button that has focus.
+      const banner = document.querySelector<HTMLElement>('.cb-banner')!;
+      let inert = false;
+      Object.defineProperty(banner, 'inert', {
+        configurable: true,
+        get: () => inert,
+        set: (next: boolean) => {
+          inert = next;
+          if (next && document.activeElement instanceof HTMLElement && banner.contains(document.activeElement)) {
+            document.activeElement.blur();
+          }
+        },
+      });
+      await user.click(customize);
+      expect(document.activeElement).not.toBe(customize);
+      await user.keyboard('{Escape}');
+      expect(document.activeElement).toBe(customize);
+    } finally {
+      focusSpy.mockRestore();
+    }
+  });
+
   it('keeps Tab inside the panel', async () => {
     const user = setup();
     await user.click(await screen.findByRole('button', { name: 'Customize' }));
