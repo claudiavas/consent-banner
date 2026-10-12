@@ -1,10 +1,13 @@
 {
   "name": "@claudiavas/consent-banner",
-  "version": "0.1.0",
+  "version": "0.1.1",
   "description": "A GDPR cookie consent banner for React with Google Consent Mode v2, i18n, light/dark themes and a consent log hook.",
   "license": "MIT",
   "author": "Claudia Vasquez",
-  "repository": "github:claudiavas/consent-banner",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/claudiavas/consent-banner.git"
+  },
   "homepage": "https://github.com/claudiavas/consent-banner#readme",
   "bugs": "https://github.com/claudiavas/consent-banner/issues",
   "keywords": [
