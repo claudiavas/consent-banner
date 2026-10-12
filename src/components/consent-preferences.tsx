@@ -106,7 +106,7 @@ export function ConsentPreferences() {
             <button type="button" className="cb-button" onClick={acceptAll}>
               {t('preferences.actions.acceptAll')}
             </button>
-            <button type="button" className="cb-button" onClick={() => save(draft)}>
+            <button type="button" className="cb-button cb-button--save" onClick={() => save(draft)}>
               {t('preferences.actions.save')}
             </button>
           </div>

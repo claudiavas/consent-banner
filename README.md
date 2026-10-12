@@ -212,7 +212,7 @@ Both layouts use the same tokens and keep the same focus and accessibility behav
 The tokens are:
 
 - **Surface and text:** `background`, `foreground`, `muted`, `border`, `link`, `focusRing`, `overlay`, `shadow`
-- **Buttons:** `buttonBackground`, `buttonForeground`, `buttonBorder`, `buttonHoverBackground`, `secondaryButtonBackground`, `secondaryButtonForeground`
+- **Buttons:** `buttonBackground`, `buttonForeground`, `buttonBorder`, `buttonHoverBackground`, `secondaryButtonBackground`, `secondaryButtonForeground`, `saveButtonBackground`, `saveButtonForeground` (the preferences dialog's save button; defaults to the main button colours)
 - **Switches:** `switchOn`, `switchOff`, `switchThumb`
 - **Shape and layering:** `radius`, `fontFamily`, `zIndex`
 

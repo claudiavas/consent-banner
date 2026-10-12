@@ -9,6 +9,8 @@ export interface ThemeTokens {
   buttonHoverBackground: string;
   secondaryButtonBackground: string;
   secondaryButtonForeground: string;
+  saveButtonBackground: string;
+  saveButtonForeground: string;
   link: string;
   focusRing: string;
   switchOn: string;
@@ -32,6 +34,8 @@ export const lightTokens: ThemeTokens = {
   buttonHoverBackground: '#3a3f4b',
   secondaryButtonBackground: 'transparent',
   secondaryButtonForeground: '#1a1d23',
+  saveButtonBackground: '#1a1d23',
+  saveButtonForeground: '#ffffff',
   link: '#1f5fbf',
   focusRing: '#1f5fbf',
   switchOn: '#1f7a4d',
@@ -55,6 +59,8 @@ export const darkTokens: ThemeTokens = {
   buttonBorder: '#eef0f4',
   buttonHoverBackground: '#c9ced8',
   secondaryButtonForeground: '#eef0f4',
+  saveButtonBackground: '#eef0f4',
+  saveButtonForeground: '#1b1e25',
   link: '#8bb8ff',
   focusRing: '#8bb8ff',
   switchOn: '#3fb97a',
@@ -104,6 +110,8 @@ const componentCss = `
 .cb-button:hover{background:var(--cb-button-hover-background);}
 .cb-button--secondary{background:var(--cb-secondary-button-background);color:var(--cb-secondary-button-foreground);border-color:var(--cb-border);}
 .cb-button--secondary:hover{background:var(--cb-secondary-button-background);border-color:var(--cb-foreground);}
+.cb-button--save,.cb-button--save:hover{background:var(--cb-save-button-background);color:var(--cb-save-button-foreground);border-color:var(--cb-save-button-background);}
+.cb-button--save:hover{filter:brightness(0.92);}
 .cb-button:focus-visible,.cb-link:focus-visible,.cb-switch input:focus-visible+.cb-switch-track,.cb-close:focus-visible{outline:2px solid var(--cb-focus-ring);outline-offset:2px;}
 .cb-overlay{position:fixed;inset:0;z-index:var(--cb-z-index);background:var(--cb-overlay);display:flex;align-items:center;justify-content:center;padding:16px;}
 .cb-dialog{width:100%;max-width:560px;max-height:calc(100vh - 32px);max-height:calc(100dvh - 32px);overflow:auto;background:var(--cb-background);color:var(--cb-foreground);border:1px solid var(--cb-border);border-radius:var(--cb-radius);box-shadow:var(--cb-shadow);padding:24px;display:flex;flex-direction:column;gap:16px;}
@@ -126,7 +134,8 @@ const componentCss = `
 .cb-banner--bar .cb-title{margin:0 0 2px;font-size:15px;}
 .cb-banner--bar .cb-text{font-size:14px;}
 .cb-banner--bar .cb-actions{flex:0 0 auto;flex-wrap:nowrap;}
-.cb-banner--bar .cb-button{min-width:0;padding:8px 16px;white-space:nowrap;}
-@media (max-width:600px){.cb-banner.cb-banner--bar{left:0;right:0;bottom:0;padding:12px 16px;flex-direction:column;align-items:stretch;gap:12px;max-height:100vh;max-height:100dvh;}.cb-banner--bar .cb-actions{flex-direction:column;}}
+.cb-banner--bar .cb-actions{gap:8px;}
+.cb-banner--bar .cb-button{min-width:0;padding:6px 12px;font-size:13px;white-space:nowrap;}
+@media (max-width:600px){.cb-banner.cb-banner--bar{left:0;right:0;bottom:0;padding:12px 16px;flex-direction:column;align-items:stretch;gap:12px;max-height:100vh;max-height:100dvh;}.cb-banner--bar .cb-actions{flex-direction:row;flex-wrap:wrap;}.cb-banner--bar .cb-button{width:auto;flex:1 1 auto;}}
 @media (prefers-reduced-motion:reduce){.cb-switch-track,.cb-switch-track::after{transition:none;}}
 `;
