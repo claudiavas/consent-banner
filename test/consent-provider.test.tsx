@@ -369,6 +369,50 @@ describe('i18n and theme', () => {
   });
 });
 
+describe('banner layout', () => {
+  it('renders the card layout by default', async () => {
+    setup();
+    const banner = await screen.findByRole('dialog', { name: 'We value your privacy' });
+    expect(banner).toHaveClass('cb-banner');
+    expect(banner).not.toHaveClass('cb-banner--bar');
+  });
+
+  it('renders a full-width bar when layout is bar, with the same roles and actions', async () => {
+    const user = setup({ layout: 'bar' });
+    const banner = await screen.findByRole('dialog', { name: 'We value your privacy' });
+    expect(banner).toHaveClass('cb-banner', 'cb-banner--bar');
+    expect(banner).toHaveAttribute('aria-modal', 'false');
+    expect(banner).toHaveAccessibleDescription(/cookies/i);
+    expect(banner.closest('.cb-root')?.querySelector('style')?.textContent).toContain('.cb-banner.cb-banner--bar{');
+
+    const accept = screen.getByRole('button', { name: 'Accept all' });
+    expect(accept.className).toBe(screen.getByRole('button', { name: 'Reject all' }).className);
+
+    await user.click(accept);
+    expect(screen.queryByRole('dialog')).not.toBeInTheDocument();
+    expect(status()).toEqual({ hasDecided: true, analytics: true, marketing: true });
+  });
+
+  it('makes the bar inert while the preferences panel is open and returns focus to Customize', async () => {
+    const user = setup({ layout: 'bar' });
+    const customize = await screen.findByRole('button', { name: 'Customize' });
+    await user.click(customize);
+    const banner = document.querySelector('.cb-banner--bar') as HTMLElement;
+    expect(banner.inert).toBe(true);
+    expect(banner).toHaveAttribute('aria-hidden', 'true');
+
+    await user.keyboard('{Escape}');
+    expect(banner.inert).toBe(false);
+    expect(customize).toHaveFocus();
+  });
+
+  it('falls back to the card layout for an unknown value', async () => {
+    setup({ layout: 'floating' as ConsentConfig['layout'] });
+    const banner = await screen.findByRole('dialog', { name: 'We value your privacy' });
+    expect(banner).not.toHaveClass('cb-banner--bar');
+  });
+});
+
 describe('useConsent', () => {
   it('throws outside the provider', () => {
     const error = vi.spyOn(console, 'error').mockImplementation(() => undefined);

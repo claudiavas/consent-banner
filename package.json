@@ -1,6 +1,6 @@
 {
   "name": "@claudiavas/consent-banner",
-  "version": "0.1.1",
+  "version": "0.2.0",
   "description": "A GDPR cookie consent banner for React with Google Consent Mode v2, i18n, light/dark themes and a consent log hook.",
   "license": "MIT",
   "author": "Claudia Vasquez",

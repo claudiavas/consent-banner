@@ -51,6 +51,12 @@ export interface ConsentModeOptions {
 
 export type ThemeMode = 'system' | 'light' | 'dark';
 
+/**
+ * `card` is a floating, rounded box. `bar` is a compact strip fixed edge to
+ * edge at the bottom of the viewport.
+ */
+export type BannerLayout = 'card' | 'bar';
+
 export interface ConsentConfig {
   /**
    * Optional categories the visitor can toggle. The `necessary` category is
@@ -72,6 +78,8 @@ export interface ConsentConfig {
   storageKey?: string;
   /** Default `system`, which follows `prefers-color-scheme`. */
   theme?: ThemeMode;
+  /** Shape of the first-layer banner. Default `card`. */
+  layout?: BannerLayout;
   /** Overrides for the color and shape tokens, per mode. */
   tokens?: {
     light?: Partial<ThemeTokens>;

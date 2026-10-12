@@ -26,14 +26,14 @@ export function ConsentBanner() {
     <ThemeRoot>
       <div
         ref={bannerRef}
-        className="cb-banner"
+        className={config.layout === 'bar' ? 'cb-banner cb-banner--bar' : 'cb-banner'}
         role="dialog"
         aria-modal="false"
         aria-labelledby={titleId}
         aria-describedby={descriptionId}
         aria-hidden={isSettingsOpen || undefined}
       >
-        <div>
+        <div className="cb-banner-body">
           <h2 id={titleId} className="cb-title">
             {t('banner.title')}
           </h2>

@@ -19,6 +19,7 @@ export { lightTokens, darkTokens } from './theme';
 export type { ThemeTokens } from './theme';
 export { NECESSARY_CATEGORY } from './types';
 export type {
+  BannerLayout,
   ConsentAction,
   ConsentCategory,
   ConsentChoices,

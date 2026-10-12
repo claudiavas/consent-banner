@@ -104,6 +104,7 @@ Every field is optional.
 | `expiryMonths` | `number` | `12` | How long a decision stays valid before the banner returns. |
 | `storageKey` | `string` | `'consent-banner'` | The `localStorage` key. |
 | `theme` | `'system' \| 'light' \| 'dark'` | `'system'` | `system` follows `prefers-color-scheme`. |
+| `layout` | `'card' \| 'bar'` | `'card'` | `card` is a floating rounded box. `bar` is a thin strip fixed edge to edge at the bottom of the viewport. |
 | `tokens` | `{ light?, dark? }` | — | Theme token overrides for each mode. |
 | `consentMode` | `ConsentModeOptions \| false` | `{}` | Google Consent Mode v2 settings. Set `false` to never touch `dataLayer`. |
 
@@ -194,6 +195,19 @@ const config: ConsentConfig = {
   },
 };
 ```
+
+### Layout
+
+The banner comes in two shapes, picked with `layout`:
+
+- **`card`** (default): a floating box with a maximum width, outer margins, rounded corners and a shadow. Text sits above the buttons.
+- **`bar`**: a compact strip fixed to the bottom of the viewport, edge to edge, with only a top border. On wide screens the text is on the left and the buttons stay in one row on the right. On phones the text stacks above the buttons, still edge to edge.
+
+```ts
+const config: ConsentConfig = { layout: 'bar' };
+```
+
+Both layouts use the same tokens and keep the same focus and accessibility behaviour.
 
 The tokens are:
 

@@ -1,6 +1,6 @@
 import { DEFAULT_LOCALE } from './i18n';
 import type { TextOverrides } from './i18n/types';
-import { NECESSARY_CATEGORY, type ConsentConfig, type ConsentModeOptions, type ThemeMode } from './types';
+import { NECESSARY_CATEGORY, type BannerLayout, type ConsentConfig, type ConsentModeOptions, type ThemeMode } from './types';
 import type { ThemeTokens } from './theme';
 
 export const DEFAULT_STORAGE_KEY = 'consent-banner';
@@ -20,6 +20,7 @@ export interface ResolvedConfig {
   expiryMonths: number;
   storageKey: string;
   theme: ThemeMode;
+  layout: BannerLayout;
   tokens: { light?: Partial<ThemeTokens>; dark?: Partial<ThemeTokens> };
   consentMode: ConsentModeOptions | false;
 }
@@ -39,6 +40,7 @@ export function resolveConfig(config: ConsentConfig = {}): ResolvedConfig {
     expiryMonths: config.expiryMonths ?? DEFAULT_EXPIRY_MONTHS,
     storageKey: config.storageKey ?? DEFAULT_STORAGE_KEY,
     theme: config.theme ?? 'system',
+    layout: config.layout === 'bar' ? 'bar' : 'card',
     tokens: config.tokens ?? {},
     consentMode: config.consentMode ?? {},
   };
